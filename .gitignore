@@ -1,0 +1,11 @@
+/.idea/
+/cmake-build-*/
+cmake-build-*/
+.vscode/
+*.exe
+*.dll
+*.pdb
+*.obj
+*.lib
+*.log
+/build/
