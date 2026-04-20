@@ -10,7 +10,8 @@ add_executable(kitsune_linkedlist src/main.cpp
         src/main.cpp
         include/linked_list.h
         include/Queue.h
-        include/Stack.h)
+        include/Stack.h
+        include/Tree.h)
 
 target_include_directories(kitsune_linkedlist PRIVATE ${CMAKE_SOURCE_DIR}/include)
 
