@@ -4,26 +4,23 @@
 
 #include <iostream>
 #include <array>
-#include "Queue.h"
+#include "Stack.h"
 
 int main() {
-        Queue<int> q; // Initialize queue of ints
 
-        // Enqueue some elements
-        q.enqueue(1);
-        q.enqueue(2);
-        q.enqueue(3);
-        q.enqueue(4);
+        Stack<int> s;
 
-        // Print size of the queue
-        std::cout << "Size: " << q.size() << '\n';
+        s.push(1);
+        s.push(2);
+        s.push(3);
+        s.push(4);
 
-        // Dequeue two elements
-        q.dequeue();
-        q.dequeue();
+        std::cout << "Top element: " << s.top() << '\n';
+        std::cout << "Stack size: " << s.size() << '\n';
 
-        // Print size of the queue after dequeuing
-        std::cout << "Size: " << q.size() << '\n';
+        s.pop();
+        std::cout << "Top element after pop: " << s.top() << '\n';
+        std::cout << "Stack size after pop: " << s.size() << '\n';
 
     return 0;
 }
