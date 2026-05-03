@@ -8,91 +8,68 @@
 
 #include <vector>
 #include <iostream>
+#include <memory>
+
+/*
+ * Memory leak - new and delete. If treenode doesn't recursively destroy owned children,
+ * the other new nodes leak. smart pointers automate ownership and deletion.
+ *
+ * std::unique_ptr<T>: single owner; automatically deletes when owner is destroyed.
+ * - use for parent-owning-children trees
+ *
+ * std::shared_ptr<T>: reference-counted shared ownership
+ * - use when multiple owners must share ownership of an object
+ *
+ * std::weak_ptr<T>: non-owning observer to break cycles with shared_ptr
+ * - use to prevent memory leaks in cyclic references
+ *
+ * make children store std::unique_ptr<TreeNode<T>> so the tree frees all nodes automatically when root
+ * is destroyed
+ * - TreeNode stores children in std::vector<std::unique_ptr<TreeNode<T>>> children;
+ * - insert adds a new child to the node
+ * - height and print_at_depth are recursive implementation
+ */
+
 
 template <typename T>
-class TreeNode {
-private:
-    T data_;
 
-public:
-    // Vector to store child nodes of the current node
-    std::vector<TreeNode*> children;
+struct TreeNode {
+    T value;
+    std::vector<std::unique_ptr<TreeNode<T>>> children;
 
-    // Constructor to initialize data and create an empty vector for child nodes
-    explicit TreeNode(T data) : data_(data) {}
+    explicit TreeNode(T v) : value(v) {}
 
-    // Destructor to free memory allocated for child nodes
-    ~TreeNode() {
-        for (int i = 0; i < children.size(); ++i) {
-            delete children[i];
+    T data() const { return value; }
+
+    std::size_t size() const { return children.size(); }
+
+    int height() const {
+        int h = 0;
+        for (const auto &c : children) {
+            int ch = c ? c->height() : 0;
+            if (ch > h) h = ch;
         }
+
+        return 1 + h;
     }
 
-    // Insert new child node
-    void insert(const T data) {
-        if (children.empty()) {
-            children.push_back(new TreeNode<T>(data));
+    void print_at_depth(int d) const {
+        if (d < 0) return;
+        if (d == 0) {
+            std::cout << value << ' ';
             return;
         }
-
-        size_t min_idx = 0;
-        size_t min_size = children[0]->children.size();
-        for (size_t i = 1; i < children.size(); ++i) {
-            if (children[i]->children.size() < min_size) {
-                min_size = children[i]->children.size();
-                min_idx = i;
-            }
+        for (const auto &c : children) {
+            if (c) c->print_at_depth(d - 1);
         }
-        children[min_idx]->children.push_back(new TreeNode<T>(data));
     }
 
-    // Get data of the current node
-    T data() const {
-        return data_;
-    }
-
-    // Get number of child nodes of the current node
-    size_t size() const {
-        return children.size();
-    }
-
-    // Overload [] operator to access child nodes by index
-    TreeNode<T>* operator[](const int idx) {
-        return children[idx];
-    }
-
-    // Count total number of nodes in the tree rooted at the current node
-    size_t count_nodes() const {
-        size_t count = 1;
-        for (size_t i = 0; i < children.size(); ++i) {
-            count += children[i]->count_nodes();
-        }
-        return count;
-    }
-
-    // Get height of the tree rooted at the current node
-    size_t height() const {
-        size_t max_height = 0;
-        for (size_t i = 0; i < children.size(); ++i) {
-            size_t child_height = children[i]->height();
-            if (child_height > max_height) max_height = child_height;
-        }
-        return max_height + 1;
-    }
-
-    // Print nodes at a given depth and return the count of nodes printed
-    size_t print_at_depth(const int depth) const {
-        if (depth == 0) {
-            std::cout << data_ << " ";
-            return 1;
-        }
-        size_t count = 0;
-        for (size_t i = 0; i < children.size(); ++i) {
-            count += children[i]->print_at_depth(depth - 1);
-        }
-        return count;
+    void insert(const T &v) {
+        children.push_back(std::make_unique<TreeNode<T>>(v));
     }
 };
+
+/*
 
 // Helper functions to demonstrate tree traversal methods
 void print(TreeNode<int>* root) {
@@ -132,3 +109,4 @@ void postorder(TreeNode<int>* root) {
 
     std::cout << root->data() << ' ';
 }
+*/

@@ -8,7 +8,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 # Add executable from sources
 add_executable(kitsune_linkedlist src/main.cpp
         src/main.cpp
-        include/linked_list.h
+        include/LinkedList.h
         include/Queue.h
         include/Stack.h
         include/Tree.h)

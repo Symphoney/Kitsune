@@ -6,6 +6,8 @@
 #include <iostream>
 #include <type_traits>
 
+
+
 template <typename T, typename = std::enable_if_t<std::is_integral_v<T>>>
 
 struct ListNode {
@@ -145,3 +147,31 @@ struct ListNode {
         return dummy->next;
     }
 };
+
+/*
+ *
+*int main() {
+auto root = std::make_unique<TreeNode<int>>(1);
+
+root->children.push_back(std::make_unique<TreeNode<int>>(2));
+root->children.push_back(std::make_unique<TreeNode<int>>(3));
+root->children[0]->children.push_back(std::make_unique<TreeNode<int>>(4));
+
+root->insert(5);
+
+std::cout << "Height of tree: " << root->height() << '\n';
+
+std::cout << "Nodes at depth 0: ";
+root->print_at_depth(0);
+std::cout << "\nNodes at depth 1: ";
+root->print_at_depth(1);
+std::cout << "\nNodes at depth 2: ";
+root->print_at_depth(2);
+
+std::cout << "\n\nRoot value: " << root->data() << '\n';
+std::cout << "Number of children of root: " << root->size() << '\n';
+
+
+return 0;
+}
+*/
