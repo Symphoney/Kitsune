@@ -8,10 +8,11 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 # Add executable from sources
 add_executable(kitsune_linkedlist src/main.cpp
         src/main.cpp
-        include/LinkedList.h
-        include/Queue.h
-        include/Stack.h
-        include/Tree.h)
+        "include/Basic Data Structures/LinkedList.h"
+        "include/Basic Data Structures/Queue.h"
+        "include/Basic Data Structures/Stack.h"
+        "include/Basic Data Structures/Tree.h"
+        include/console_output.h)
 
 target_include_directories(kitsune_linkedlist PRIVATE ${CMAKE_SOURCE_DIR}/include)
 
