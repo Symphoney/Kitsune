@@ -12,7 +12,8 @@ add_executable(kitsune_linkedlist src/main.cpp
         "include/Basic Data Structures/Queue.h"
         "include/Basic Data Structures/Stack.h"
         "include/Basic Data Structures/Tree.h"
-        include/console_output.h)
+        include/Linux/console_output.h
+        include/vector_raster.h)
 
 target_include_directories(kitsune_linkedlist PRIVATE ${CMAKE_SOURCE_DIR}/include)
 

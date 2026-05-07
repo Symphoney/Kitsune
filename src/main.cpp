@@ -2,19 +2,19 @@
 // Created by Rija on 4/14/2026.
 //
 
-#include "console_output.h"
 #include <iostream>
-#include <string>
+#include "vector_raster.h"
 
 int main() {
+    // construct a line from (0, 0) to (3, 3)
+    Line line{ Point{0, 0}, Point{3, 3} };
 
-#ifdef _WIN32
-    std::string cmd = "cmd /C dir";
-#else
-    std::string cmd = "ls";
-#endif
+    LineToPointAdapter adapter(line);
 
-    std::cout << command_output_get(cmd) << '\n';
+    int idx = 0;
+    for (const auto &p : adapter) {
+        std::cout << "Point " << idx++ << ": " << p.x << ", " << p.y << '\n';
+    }
 
     return 0;
 }
