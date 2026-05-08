@@ -8,6 +8,25 @@ It acts as a bridge between two incompatible interfaces, enabling them to commun
 without modifying their code.
  */
 
+/*
+ * Common real-world uses:
+ * - SVG rendering
+ * - GUI toolkits
+ * - font rendering
+ * - game engines converting geometry to pixels
+ *
+ * Vector vs Raster
+ * Vector: Shapes defined by primitives (like lines, curves, polygons).
+ * Scales without loss, ideal for illustrations and logos.
+ * Raster: fixed grid of pixels. Rendering happens by setting pixel values (points)
+ * Scales poorly, ideal for photographs and complex images.
+ *
+ * Why teh adapter - LineToPointAdapter
+ * Raster code knows how to draw points/pixels. The adapter converts vector primitives (a Line)
+ * into the sequence of Points the raster renderer expects. It bridges both representations
+ * so you can keep vector models and reuse existing raster drawing code.
+ */
+
 #include <iostream>
 #include <vector>
 #include <memory>

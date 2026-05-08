@@ -1,6 +1,10 @@
+//
+// Created by Rija on 5/7/2026.
+//
+
 #include <Windows.h>
 #include <iostream>
-
+/*
 int main() {
     POINT p;
 
@@ -14,3 +18,4 @@ int main() {
 
     return 0;
 }
+*/
