@@ -1,14 +1,14 @@
 #include <Windows.h>
 #include <iostream>
-#include "mouse_track.h"
+#include "Windows/Keyboard/keyboard_track.h"
 
 int main() {
-    mouse_track::MouseTracker tracker(100, [](const POINT& p) {
-        std::cout << "Mouse moved to: (" << p.x << ", " << p.y << ")\n";
-    }, 10);
+    keyboard_track::KeyboardTracker tracker(50, [](int vk, bool down) {
+        std::cout << "VK " << vk << (down ? " pressed\n" : " released\n");
+    });
 
-    std::cout << "Tracking mouse. Hit Enter to make it stop.\n";
-    std::cin.get(); // waits for user input
+    std::cout << "Tracking keyboard. Press Enter to stop.\n";
+    std::cin.get();
 
     return 0;
 }
